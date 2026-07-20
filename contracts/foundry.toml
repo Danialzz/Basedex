@@ -1,0 +1,25 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+solc = "0.8.26"
+evm_version = "cancun"
+optimizer = true
+optimizer_runs = 2000
+via_ir = false
+
+# Allow the deploy script to write deployment artifacts for the frontend
+fs_permissions = [
+    { access = "read-write", path = "./deployments" },
+    { access = "read-write", path = "../src/config" },
+]
+
+[rpc_endpoints]
+base_sepolia = "https://sepolia.base.org"
+base = "https://mainnet.base.org"
+
+[etherscan]
+base_sepolia = { key = "${BASESCAN_API_KEY}", url = "https://api-sepolia.basescan.org/api" }
+base = { key = "${BASESCAN_API_KEY}", url = "https://api.basescan.org/api" }
+
+# See: https://book.getfoundry.sh/reference/config
