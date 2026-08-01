@@ -113,7 +113,7 @@ export function EarnSection() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
-        <Card className="glass rounded-3xl border-white/10">
+        <Card className="glass rounded-3xl border-softer">
           <CardHeader className="pb-3">
             <div className="flex items-center gap-2.5">
               <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-400 to-cyan-500">
@@ -127,7 +127,7 @@ export function EarnSection() {
           </CardHeader>
           <CardContent>
             <Tabs defaultValue="deposit">
-              <TabsList className="grid w-full grid-cols-2 rounded-xl bg-black/30">
+              <TabsList className="grid w-full grid-cols-2 rounded-xl inset-panel">
                 <TabsTrigger
                   value="deposit"
                   className="rounded-lg data-[state=active]:bg-primary data-[state=active]:text-white"
@@ -153,7 +153,7 @@ export function EarnSection() {
                   }
                   onMax={() => setDepositAmt(formatUnits(data.usdcBalance ?? 0n, 18))}
                 />
-                <div className="space-y-1.5 rounded-2xl border border-white/5 bg-black/20 px-4 py-3 text-xs">
+                <div className="space-y-1.5 rounded-2xl border border-soft inset-panel px-4 py-3 text-xs">
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">You receive (est.)</span>
                     <span className="font-medium">
@@ -213,7 +213,7 @@ export function EarnSection() {
                     setWithdrawAmt(formatUnits(data.userVaultAssets, 18))
                   }
                 />
-                <div className="space-y-1.5 rounded-2xl border border-white/5 bg-black/20 px-4 py-3 text-xs">
+                <div className="space-y-1.5 rounded-2xl border border-soft inset-panel px-4 py-3 text-xs">
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Your vault balance</span>
                     <span className="font-medium">
@@ -287,7 +287,7 @@ export function EarnSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.1 }}
         >
-          <Card className="glass rounded-3xl border-white/10">
+          <Card className="glass rounded-3xl border-softer">
             <CardHeader className="flex-row items-baseline justify-between space-y-0">
               <div>
                 <CardTitle className="text-lg">Projected growth</CardTitle>
@@ -315,7 +315,7 @@ export function EarnSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.15 }}
         >
-          <div className="glass rounded-3xl border-white/10 p-5 text-xs leading-relaxed text-muted-foreground">
+          <div className="glass rounded-3xl border-softer p-5 text-xs leading-relaxed text-muted-foreground">
             <span className="font-semibold text-foreground">How the vault works.</span> The vault
             follows the ERC-4626 tokenized-vault standard: you deposit mUSDC and receive bvUSD
             shares; yield accrues continuously at a fixed emission rate, so each share becomes

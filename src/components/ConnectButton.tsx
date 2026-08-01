@@ -28,7 +28,7 @@ export function AddressAvatar({ address, size = 32 }: { address: string; size?: 
   const hue2 = (hue + 80) % 360
   return (
     <span
-      className="inline-block shrink-0 rounded-full ring-2 ring-white/10"
+      className="inline-block shrink-0 rounded-full ring-2 ring-border"
       style={{
         width: size,
         height: size,
@@ -71,14 +71,14 @@ export function ConnectButton() {
         <DropdownMenuTrigger asChild>
           <Button
             variant="outline"
-            className="glass gap-2.5 rounded-xl border-white/10 px-3 hover:border-primary/40"
+            className="glass gap-2.5 rounded-xl border-softer px-3 hover:border-primary/40"
           >
             <AddressAvatar address={address} size={22} />
             <span className="font-mono text-sm">{shortenAddress(address)}</span>
             <ChevronDown className="h-3.5 w-3.5 text-muted-foreground" />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="glass w-60 rounded-xl border-white/10">
+        <DropdownMenuContent align="end" className="glass w-60 rounded-xl border-softer">
           <DropdownMenuLabel className="flex items-center gap-2.5 py-3">
             <AddressAvatar address={address} size={34} />
             <div>
@@ -89,7 +89,7 @@ export function ConnectButton() {
               </div>
             </div>
           </DropdownMenuLabel>
-          <DropdownMenuSeparator className="bg-white/5" />
+          <DropdownMenuSeparator className="bg-border" />
           <DropdownMenuItem
             className="cursor-pointer gap-2"
             onClick={() => {
@@ -105,7 +105,7 @@ export function ConnectButton() {
           >
             <ExternalLink className="h-4 w-4" /> View on Basescan
           </DropdownMenuItem>
-          <DropdownMenuSeparator className="bg-white/5" />
+          <DropdownMenuSeparator className="bg-border" />
           <DropdownMenuItem
             className="cursor-pointer gap-2 text-destructive focus:text-destructive"
             onClick={() => disconnect()}
@@ -128,7 +128,7 @@ export function ConnectButton() {
       </Button>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="glass rounded-2xl border-white/10 sm:max-w-sm">
+        <DialogContent className="glass rounded-2xl border-softer sm:max-w-sm">
           <DialogHeader>
             <DialogTitle className="text-xl">Connect a wallet</DialogTitle>
             <DialogDescription>
@@ -151,7 +151,7 @@ export function ConnectButton() {
                       toast.error('Connection cancelled')
                     }
                   }}
-                  className="group flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.03] p-4 text-left transition-all hover:border-primary/50 hover:bg-primary/5 disabled:opacity-50"
+                  className="group flex items-center gap-3 rounded-xl border border-softer surface p-4 text-left transition-all hover:border-primary/50 hover:bg-primary/5 disabled:opacity-50"
                 >
                   <span className="text-2xl">{meta.icon}</span>
                   <div>

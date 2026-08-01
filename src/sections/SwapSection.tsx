@@ -114,7 +114,7 @@ export function SwapSection() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
-        <Card className="glass rounded-3xl border-white/10">
+        <Card className="glass rounded-3xl border-softer">
           <CardHeader className="flex-row items-center justify-between space-y-0 pb-3">
             <CardTitle className="text-lg">Swap</CardTitle>
             <Popover>
@@ -127,7 +127,7 @@ export function SwapSection() {
                   <Settings className="h-4 w-4" />
                 </Button>
               </PopoverTrigger>
-              <PopoverContent align="end" className="glass w-64 rounded-2xl border-white/10">
+              <PopoverContent align="end" className="glass w-64 rounded-2xl border-softer">
                 <div className="text-sm font-semibold">Slippage tolerance</div>
                 <div className="mt-2.5 flex gap-2">
                   {SLIPPAGE_OPTIONS.map((s) => (
@@ -138,7 +138,7 @@ export function SwapSection() {
                         'flex-1 rounded-lg border px-2 py-1.5 text-sm font-medium transition-colors',
                         slippage === s
                           ? 'border-primary bg-primary/15 text-primary'
-                          : 'border-white/10 text-muted-foreground hover:border-white/20',
+                          : 'border-softer text-muted-foreground hover:border-primary/40',
                       )}
                     >
                       {s}%
@@ -167,7 +167,7 @@ export function SwapSection() {
             <div className="relative flex justify-center py-1">
               <button
                 onClick={flip}
-                className="absolute -top-5 z-10 flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-card text-primary shadow-lg transition-transform hover:scale-110 hover:rotate-180"
+                className="absolute -top-5 z-10 flex h-9 w-9 items-center justify-center rounded-xl border border-softer bg-card text-primary shadow-lg transition-transform hover:scale-110 hover:rotate-180"
                 aria-label="Flip tokens"
               >
                 <ArrowDownUp className="h-4 w-4" />
@@ -187,7 +187,7 @@ export function SwapSection() {
             />
 
             {/* Quote details */}
-            <div className="space-y-1.5 rounded-2xl border border-white/5 bg-black/20 px-4 py-3 text-xs">
+            <div className="inset-panel space-y-1.5 rounded-2xl border border-soft px-4 py-3 text-xs">
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Rate</span>
                 <span className="font-medium">
@@ -268,7 +268,7 @@ export function SwapSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.1 }}
         >
-          <Card className="glass rounded-3xl border-white/10">
+          <Card className="glass rounded-3xl border-softer">
             <CardHeader className="flex-row items-baseline justify-between space-y-0">
               <div>
                 <CardTitle className="text-lg">mETH / mUSDC</CardTitle>
@@ -289,7 +289,7 @@ export function SwapSection() {
               {points.length > 0 ? (
                 <PriceChart data={points} color="#0052FF" height={260} />
               ) : (
-                <div className="flex h-[260px] items-center justify-center rounded-2xl border border-dashed border-white/10 text-sm text-muted-foreground">
+                <div className="flex h-[260px] items-center justify-center rounded-2xl border border-dashed border-softer text-sm text-muted-foreground">
                   {isLive ? 'No swaps yet — be the first to trade!' : 'Loading chart…'}
                 </div>
               )}

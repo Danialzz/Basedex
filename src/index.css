@@ -82,7 +82,6 @@
     color-scheme: light;
   }
 
-
   body {
     @apply bg-background text-foreground antialiased;
     font-feature-settings: 'ss01', 'cv11';
@@ -137,5 +136,37 @@
       linear-gradient(to right, hsl(224 47% 11% / 0.05) 1px, transparent 1px),
       linear-gradient(to bottom, hsl(224 47% 11% / 0.05) 1px, transparent 1px);
   }
-}
 
+  /*
+    Theme-aware surfaces & borders. The dark theme builds depth with white
+    overlays and dark inset panels; those disappear on a light background, so
+    the `.light` variants switch to soft neutral fills and dark-tinted borders.
+  */
+  .surface {
+    background-color: hsl(0 0% 100% / 0.03);
+  }
+  .light .surface {
+    background-color: hsl(221 100% 50% / 0.04);
+  }
+
+  .inset-panel {
+    background-color: hsl(0 0% 0% / 0.2);
+  }
+  .light .inset-panel {
+    background-color: hsl(220 20% 94% / 0.7);
+  }
+
+  .border-soft {
+    border-color: hsl(0 0% 100% / 0.05);
+  }
+  .light .border-soft {
+    border-color: hsl(224 47% 11% / 0.08);
+  }
+
+  .border-softer {
+    border-color: hsl(0 0% 100% / 0.1);
+  }
+  .light .border-softer {
+    border-color: hsl(224 47% 11% / 0.12);
+  }
+}

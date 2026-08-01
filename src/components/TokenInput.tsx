@@ -35,11 +35,10 @@ export function TokenInput({
         overflow-hidden
         rounded-3xl
         border
-        border-white/10
-        bg-gradient-to-br
-        from-white/[0.05]
-        to-white/[0.02]
+        border-softer
+        bg-card
         p-5
+
         backdrop-blur-xl
         transition-all
         duration-300
@@ -120,9 +119,10 @@ export function TokenInput({
               gap-3
               rounded-2xl
               border
-              border-white/10
-              bg-white/5
+              border-softer
+              surface
               px-4
+
               py-2.5
               shadow-inner
             "

@@ -4,7 +4,6 @@ import { ThemeToggle } from '@/components/ThemeToggle'
 import { DEMO_MODE } from '@/config/contracts'
 import { cn } from '@/lib/utils'
 
-
 export type Tab = 'swap' | 'pool' | 'earn' | 'faucet'
 
 const TABS: { id: Tab; label: string }[] = [
@@ -16,7 +15,7 @@ const TABS: { id: Tab; label: string }[] = [
 
 export function Header({ tab, onTab }: { tab: Tab; onTab: (t: Tab) => void }) {
   return (
-    <header className="sticky top-0 z-40 border-b border-white/5 bg-background/70 backdrop-blur-xl">
+    <header className="sticky top-0 z-40 border-b border-soft bg-background/70 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-6xl items-center gap-4 px-4">
         {/* Brand */}
         <div className="flex items-center gap-2.5">
@@ -32,7 +31,7 @@ export function Header({ tab, onTab }: { tab: Tab; onTab: (t: Tab) => void }) {
         </div>
 
         {/* Nav */}
-        <nav className="ml-2 hidden items-center gap-1 rounded-full border border-white/5 bg-white/[0.03] p-1 sm:flex">
+        <nav className="surface ml-2 hidden items-center gap-1 rounded-full border border-soft p-1 sm:flex">
           {TABS.map((t) => (
             <button
               key={t.id}
@@ -56,18 +55,17 @@ export function Header({ tab, onTab }: { tab: Tab; onTab: (t: Tab) => void }) {
               Demo mode
             </span>
           )}
-          <span className="hidden items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-xs font-medium text-muted-foreground lg:flex">
+          <span className="surface hidden items-center gap-1.5 rounded-full border border-softer px-3 py-1 text-xs font-medium text-muted-foreground lg:flex">
             <span className="h-1.5 w-1.5 rounded-full bg-[#0052FF]" />
             Base Sepolia
           </span>
           <ThemeToggle />
           <ConnectButton />
-
         </div>
       </div>
 
       {/* Mobile nav */}
-      <nav className="flex items-center gap-1 overflow-x-auto border-t border-white/5 px-4 py-2 sm:hidden">
+      <nav className="flex items-center gap-1 overflow-x-auto border-t border-soft px-4 py-2 sm:hidden">
         {TABS.map((t) => (
           <button
             key={t.id}

@@ -3,7 +3,7 @@ import { ADDRESSES, DEMO_MODE, EXPLORER } from '@/config/contracts'
 
 export function Footer() {
   return (
-    <footer className="mt-16 border-t border-white/5 py-8">
+    <footer className="mt-16 border-t border-soft py-8">
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-5 px-4 sm:flex-row sm:justify-between">
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-cyan-400">

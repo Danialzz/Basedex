@@ -67,7 +67,7 @@ export function FaucetSection() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
       >
-        <Card className="glass rounded-3xl border-white/10">
+        <Card className="glass rounded-3xl border-softer">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-base">
               <ListChecks className="h-4 w-4 text-primary" /> Getting started in 3 steps
@@ -137,7 +137,7 @@ function FaucetCard({
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.05 }}
     >
-      <Card className="glass rounded-3xl border-white/10">
+      <Card className="glass rounded-3xl border-softer">
         <CardContent className="p-6">
           <div className="flex items-center gap-3">
             <TokenBadge symbol={token} size="lg" />
@@ -185,7 +185,7 @@ function Step({
   link?: { href: string; label: string }
 }) {
   return (
-    <div className="flex gap-3.5 rounded-2xl border border-white/5 bg-black/20 p-4">
+    <div className="flex gap-3.5 rounded-2xl border border-soft inset-panel p-4">
       <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary/15 text-sm font-bold text-primary">
         {n}
       </span>

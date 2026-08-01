@@ -152,14 +152,14 @@ export function PoolSection() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
-        <Card className="glass rounded-3xl border-white/10">
+        <Card className="glass rounded-3xl border-softer">
           <CardHeader className="pb-3">
             <CardTitle className="text-lg">Liquidity</CardTitle>
             <CardDescription>Deposit both tokens to earn 0.30% of every swap.</CardDescription>
           </CardHeader>
           <CardContent>
             <Tabs defaultValue="add">
-              <TabsList className="grid w-full grid-cols-2 rounded-xl bg-black/30">
+              <TabsList className="grid w-full grid-cols-2 rounded-xl inset-panel">
                 <TabsTrigger
                   value="add"
                   className="rounded-lg data-[state=active]:bg-primary data-[state=active]:text-white"
@@ -198,7 +198,7 @@ export function PoolSection() {
                   }
                   onMax={() => onMethChange(formatUnits(data.methBalance ?? 0n, 18))}
                 />
-                <div className="space-y-1.5 rounded-2xl border border-white/5 bg-black/20 px-4 py-3 text-xs">
+                <div className="space-y-1.5 rounded-2xl border border-soft inset-panel px-4 py-3 text-xs">
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Pool ratio</span>
                     <span className="font-medium">1 mETH = {formatNumber(price, 2)} mUSDC</span>
@@ -247,7 +247,7 @@ export function PoolSection() {
               </TabsContent>
 
               <TabsContent value="remove" className="mt-4 space-y-4">
-                <div className="rounded-2xl border border-white/5 bg-black/30 p-5 text-center">
+                <div className="rounded-2xl border border-soft inset-panel p-5 text-center">
                   <div className="text-4xl font-semibold tracking-tight text-primary">
                     {removePct}%
                   </div>
@@ -266,14 +266,14 @@ export function PoolSection() {
                       <button
                         key={p}
                         onClick={() => setRemovePct(p)}
-                        className="rounded-md px-2 py-1 hover:bg-white/5"
+                        className="rounded-md px-2 py-1 hover:bg-accent"
                       >
                         {p}%
                       </button>
                     ))}
                   </div>
                 </div>
-                <div className="space-y-1.5 rounded-2xl border border-white/5 bg-black/20 px-4 py-3 text-xs">
+                <div className="space-y-1.5 rounded-2xl border border-soft inset-panel px-4 py-3 text-xs">
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">You receive</span>
                     <span className="font-medium">
@@ -352,7 +352,7 @@ export function PoolSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.1 }}
         >
-          <Card className="glass rounded-3xl border-white/10">
+          <Card className="glass rounded-3xl border-softer">
             <CardHeader>
               <div className="flex items-center gap-3">
                 <PairBadge />
@@ -379,7 +379,7 @@ export function PoolSection() {
                 color="#8a9cff"
                 note={`${formatNumber(Number(formatUnits(data.reserveMeth, 18)), 3)} mETH`}
               />
-              <div className="rounded-2xl border border-white/5 bg-black/20 p-4 text-xs leading-relaxed text-muted-foreground">
+              <div className="rounded-2xl border border-soft inset-panel p-4 text-xs leading-relaxed text-muted-foreground">
                 <span className="font-semibold text-foreground">How it works.</span> LPs deposit
                 both sides of the pair and receive BS-LP tokens representing their share. Every swap
                 pays a 0.30% fee into the pool, so LP tokens become redeemable for a growing amount
@@ -416,7 +416,7 @@ function PoolBar({
           {note ?? `$${formatCompact(amount)}`} · {formatNumber(pct, 1)}%
         </span>
       </div>
-      <div className="h-2.5 w-full overflow-hidden rounded-full bg-white/5">
+      <div className="h-2.5 w-full overflow-hidden rounded-full bg-border">
         <motion.div
           initial={{ width: 0 }}
           animate={{ width: `${pct}%` }}
