@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { useAccount } from 'wagmi'
 import { formatUnits } from 'viem'
 import { motion } from 'framer-motion'
@@ -37,15 +37,13 @@ export function EarnSection() {
       ? Number(formatUnits(parsedDeposit, 18)) / sharePriceFloat
       : undefined
 
-  const growthData = useMemo(
-    () =>
-      projectedGrowth(
-        parsedDeposit !== undefined && parsedDeposit > 0n
-          ? Number(formatUnits(parsedDeposit, 18))
-          : 10_000,
-        data.vaultApyBps,
-      ),
-    [parsedDeposit, data.vaultApyBps],
+  // Cheap pure computation; the React Compiler memoizes it automatically, so a
+  // manual useMemo (whose bigint dep changes identity each render) isn't needed.
+  const growthData = projectedGrowth(
+    parsedDeposit !== undefined && parsedDeposit > 0n
+      ? Number(formatUnits(parsedDeposit, 18))
+      : 10_000,
+    data.vaultApyBps,
   )
 
   const wrap = (fn: () => Promise<boolean>) => async () => {

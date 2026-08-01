@@ -15,6 +15,9 @@ import { useTxAction } from '@/hooks/useTxAction'
 import { ADDRESSES, TOKENS, mockErc20Abi, pairAbi } from '@/config/contracts'
 import { formatCompact, formatNumber, formatToken, safeParseUnits } from '@/lib/format'
 
+/** 20-minute tx validity window. Called only from event handlers, never during render. */
+const deadline = () => BigInt(Math.floor(Date.now() / 1000) + 60 * 20)
+
 export function PoolSection() {
   const { isConnected, address } = useAccount()
   const data = useProtocolData()
@@ -85,8 +88,6 @@ export function PoolSection() {
     removeLiquidity > 0n &&
     data.allowanceLpPair !== undefined &&
     data.allowanceLpPair < removeLiquidity
-
-  const deadline = () => BigInt(Math.floor(Date.now() / 1000) + 60 * 20)
 
   const doApprove = (token: 'mUSDC' | 'mETH' | 'LP') => {
     const cfg =

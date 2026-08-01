@@ -13,7 +13,13 @@ import { formatCountdown, formatToken } from '@/lib/format'
 /** Local per-second countdown seeded from the on-chain value. */
 function useCountdown(initial: number) {
   const [left, setLeft] = useState(initial)
-  useEffect(() => setLeft(initial), [initial])
+  // Re-seed when the on-chain value changes by resetting state during render
+  // (the supported "derive state from props" pattern) instead of in an effect.
+  const [prevInitial, setPrevInitial] = useState(initial)
+  if (initial !== prevInitial) {
+    setPrevInitial(initial)
+    setLeft(initial)
+  }
   useEffect(() => {
     if (left <= 0) return
     const t = setInterval(() => setLeft((v) => Math.max(0, v - 1)), 1000)

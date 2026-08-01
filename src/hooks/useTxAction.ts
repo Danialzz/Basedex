@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import {
   useWriteContract,
   useWaitForTransactionReceipt,
@@ -36,30 +36,42 @@ export function useTxAction(onConfirmed?: () => void) {
   const { isConnected } = useAccount()
   const { switchChainAsync } = useSwitchChain()
   const { writeContractAsync, reset } = useWriteContract()
-  const hashRef = useRef<`0x${string}` | undefined>(undefined)
+  // The tx hash drives useWaitForTransactionReceipt, so it must be state (not a
+  // ref) for the receipt hook to re-run when a new hash arrives.
+  const [hash, setHash] = useState<`0x${string}` | undefined>(undefined)
 
-  const receipt = useWaitForTransactionReceipt({ hash: hashRef.current })
+  const receipt = useWaitForTransactionReceipt({ hash })
+
+  // Keep the latest callback in a ref so the confirmation effect below doesn't
+  // need it as a dependency (avoids re-firing when the parent re-renders).
   const onConfirmedRef = useRef(onConfirmed)
-  onConfirmedRef.current = onConfirmed
+  useEffect(() => {
+    onConfirmedRef.current = onConfirmed
+  }, [onConfirmed])
+
+  // Fire the success/error toast exactly once per hash. A ref records which hash
+  // was already handled so the effect doesn't loop; the hash itself is cleared
+  // in `run` (an event handler) when the next transaction starts.
+  const handledHashRef = useRef<`0x${string}` | undefined>(undefined)
 
   useEffect(() => {
-    if (receipt.isSuccess && hashRef.current) {
+    if (!hash || handledHashRef.current === hash) return
+    if (receipt.isSuccess) {
+      handledHashRef.current = hash
       toast.success('Transaction confirmed', {
         action: {
           label: 'Basescan',
-          onClick: () => window.open(`${EXPLORER}/tx/${hashRef.current}`, '_blank'),
+          onClick: () => window.open(`${EXPLORER}/tx/${hash}`, '_blank'),
         },
       })
       onConfirmedRef.current?.()
-      hashRef.current = undefined
       reset()
-    }
-    if (receipt.isError) {
+    } else if (receipt.isError) {
+      handledHashRef.current = hash
       toast.error('Transaction failed on-chain')
-      hashRef.current = undefined
       reset()
     }
-  }, [receipt.isSuccess, receipt.isError, reset])
+  }, [receipt.isSuccess, receipt.isError, hash, reset])
 
   const run = useCallback(
     async (config: TxConfig, messages: TxMessages): Promise<boolean> => {
@@ -84,7 +96,8 @@ export function useTxAction(onConfirmed?: () => void) {
         // accepts; the generic can't be inferred from a runtime config object,
         // so we assert to that parameter type instead of `never`.
         const hash = await writeContractAsync(config as WriteVariables)
-        hashRef.current = hash
+        handledHashRef.current = undefined
+        setHash(hash)
         toast.loading('Waiting for confirmation…', {
           id: toastId,
           action: {
