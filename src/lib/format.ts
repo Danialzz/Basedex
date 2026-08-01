@@ -1,4 +1,4 @@
-import { formatUnits } from 'viem'
+import { formatUnits, parseUnits } from 'viem'
 
 /** Format a bigint token amount into a compact human string. */
 export function formatToken(
@@ -46,25 +46,19 @@ export function formatCountdown(seconds: number): string {
   const h = Math.floor(seconds / 3600)
   const m = Math.floor((seconds % 3600) / 60)
   const s = seconds % 60
-  return h > 0
-    ? `${h}h ${m}m ${s}s`
-    : m > 0
-      ? `${m}m ${s}s`
-      : `${s}s`
+  return h > 0 ? `${h}h ${m}m ${s}s` : m > 0 ? `${m}m ${s}s` : `${s}s`
 }
 
-/** Parse a user input string into bigint units; returns undefined if invalid. */
+/**
+ * Parse a user input string into bigint units; returns undefined if invalid.
+ * Delegates to viem's parseUnits (handles padding, multiple dots, signs, etc.)
+ * and rejects negatives, which are never valid token amounts in this UI.
+ */
 export function safeParseUnits(input: string, decimals: number): bigint | undefined {
+  const trimmed = input.trim()
+  if (!trimmed || trimmed === '.' || trimmed.startsWith('-')) return undefined
   try {
-    if (!input || input === '.' || Number.isNaN(Number(input))) return undefined
-    const [whole, frac = ''] = input.split('.')
-    const padded = (frac + '0'.repeat(decimals)).slice(0, decimals)
-    const normalized = `${whole === '' ? '0' : whole}.${padded}`
-    // viem parseUnits without importing here to keep this util framework-agnostic
-    const negative = normalized.startsWith('-')
-    const [w, f = ''] = normalized.replace('-', '').split('.')
-    const value = BigInt(w === '' ? '0' : w) * 10n ** BigInt(decimals) + BigInt(f === '' ? '0' : f)
-    return negative ? -value : value
+    return parseUnits(trimmed, decimals)
   } catch {
     return undefined
   }

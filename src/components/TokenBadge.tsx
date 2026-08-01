@@ -12,7 +12,8 @@ export function TokenBadge({
   className?: string
 }) {
   const token = TOKENS[symbol]
-  const sizeCls = size === 'sm' ? 'h-6 w-6 text-[10px]' : size === 'lg' ? 'h-10 w-10 text-sm' : 'h-8 w-8 text-xs'
+  const sizeCls =
+    size === 'sm' ? 'h-6 w-6 text-[10px]' : size === 'lg' ? 'h-10 w-10 text-sm' : 'h-8 w-8 text-xs'
   return (
     <span
       className={cn(

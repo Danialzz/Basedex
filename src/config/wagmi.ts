@@ -13,10 +13,7 @@ export const RPC_URL: string | undefined = import.meta.env.VITE_RPC_URL
 
 export const wagmiConfig = createConfig({
   chains: [baseSepolia],
-  connectors: [
-    injected(),
-    coinbaseWallet({ appName: 'BaseDex', appChainIds: [baseSepolia.id] }),
-  ],
+  connectors: [injected(), coinbaseWallet({ appName: 'BaseDex', appChainIds: [baseSepolia.id] })],
   transports: {
     [baseSepolia.id]: http(RPC_URL),
   },

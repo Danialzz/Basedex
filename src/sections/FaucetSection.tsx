@@ -27,10 +27,15 @@ export function FaucetSection() {
   const data = useProtocolData()
   return (
     <div className="mx-auto max-w-3xl space-y-6">
-      <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="text-center">
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="text-center"
+      >
         <h2 className="text-2xl font-bold tracking-tight">Testnet faucet</h2>
         <p className="mt-1.5 text-sm text-muted-foreground">
-          Claim free demo tokens to try swapping, pooling and the vault. Each token is claimable once per 24h per wallet.
+          Claim free demo tokens to try swapping, pooling and the vault. Each token is claimable
+          once per 24h per wallet.
         </p>
       </motion.div>
 
@@ -51,18 +56,40 @@ export function FaucetSection() {
         />
       </div>
 
-      <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.1 }}
+      >
         <Card className="glass rounded-3xl border-white/10">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-base">
               <ListChecks className="h-4 w-4 text-primary" /> Getting started in 3 steps
             </CardTitle>
-            <CardDescription>Everything runs on Base Sepolia — no real funds needed.</CardDescription>
+            <CardDescription>
+              Everything runs on Base Sepolia — no real funds needed.
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
-            <Step n={1} title="Get Base Sepolia ETH" desc="For gas. Free from the official Coinbase faucet or any Base Sepolia faucet." link={{ href: 'https://www.coinbase.com/faucets/base-ethereum-sepolia-faucet', label: 'Open ETH faucet' }} />
-            <Step n={2} title="Claim mUSDC & mETH above" desc="These mock tokens back the demo pool and vault." />
-            <Step n={3} title="Swap, add liquidity, or deposit in the vault" desc="All transactions are real on-chain calls on Base Sepolia — track them on Basescan." />
+            <Step
+              n={1}
+              title="Get Base Sepolia ETH"
+              desc="For gas. Free from the official Coinbase faucet or any Base Sepolia faucet."
+              link={{
+                href: 'https://www.coinbase.com/faucets/base-ethereum-sepolia-faucet',
+                label: 'Open ETH faucet',
+              }}
+            />
+            <Step
+              n={2}
+              title="Claim mUSDC & mETH above"
+              desc="These mock tokens back the demo pool and vault."
+            />
+            <Step
+              n={3}
+              title="Swap, add liquidity, or deposit in the vault"
+              desc="All transactions are real on-chain calls on Base Sepolia — track them on Basescan."
+            />
           </CardContent>
         </Card>
       </motion.div>
@@ -99,7 +126,11 @@ function FaucetCard({
   }
 
   return (
-    <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}>
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.05 }}
+    >
       <Card className="glass rounded-3xl border-white/10">
         <CardContent className="p-6">
           <div className="flex items-center gap-3">
@@ -116,19 +147,19 @@ function FaucetCard({
             onClick={doClaim}
             variant={claimable ? 'default' : 'outline'}
           >
-            {busy
-              ? 'Claiming…'
-              : isDemo
-                ? `Claim ${amount} ${token} (demo)`
-                : !isConnected
-                  ? 'Connect wallet'
-                  : claimable
-                    ? `Claim ${amount} ${token}`
-                    : (
-                      <span className="flex items-center gap-1.5">
-                        <Clock className="h-4 w-4" /> {formatCountdown(left)}
-                      </span>
-                    )}
+            {busy ? (
+              'Claiming…'
+            ) : isDemo ? (
+              `Claim ${amount} ${token} (demo)`
+            ) : !isConnected ? (
+              'Connect wallet'
+            ) : claimable ? (
+              `Claim ${amount} ${token}`
+            ) : (
+              <span className="flex items-center gap-1.5">
+                <Clock className="h-4 w-4" /> {formatCountdown(left)}
+              </span>
+            )}
           </Button>
         </CardContent>
       </Card>
@@ -136,7 +167,17 @@ function FaucetCard({
   )
 }
 
-function Step({ n, title, desc, link }: { n: number; title: string; desc: string; link?: { href: string; label: string } }) {
+function Step({
+  n,
+  title,
+  desc,
+  link,
+}: {
+  n: number
+  title: string
+  desc: string
+  link?: { href: string; label: string }
+}) {
   return (
     <div className="flex gap-3.5 rounded-2xl border border-white/5 bg-black/20 p-4">
       <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary/15 text-sm font-bold text-primary">

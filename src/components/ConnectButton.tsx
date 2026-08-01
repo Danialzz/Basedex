@@ -69,7 +69,10 @@ export function ConnectButton() {
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline" className="glass gap-2.5 rounded-xl border-white/10 px-3 hover:border-primary/40">
+          <Button
+            variant="outline"
+            className="glass gap-2.5 rounded-xl border-white/10 px-3 hover:border-primary/40"
+          >
             <AddressAvatar address={address} size={22} />
             <span className="font-mono text-sm">{shortenAddress(address)}</span>
             <ChevronDown className="h-3.5 w-3.5 text-muted-foreground" />

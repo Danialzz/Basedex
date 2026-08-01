@@ -59,7 +59,12 @@ export function SwapSection() {
   const insufficient = parsedIn !== undefined && balanceIn !== undefined && parsedIn > balanceIn
   const allowance = tokenIn === 'mUSDC' ? data.allowanceUsdcPair : data.allowanceMethPair
   const needsApproval =
-    !data.isDemo && isConnected && parsedIn !== undefined && parsedIn > 0n && allowance !== undefined && allowance < parsedIn
+    !data.isDemo &&
+    isConnected &&
+    parsedIn !== undefined &&
+    parsedIn > 0n &&
+    allowance !== undefined &&
+    allowance < parsedIn
 
   const flip = () => {
     setTokenIn(tokenOut)
@@ -104,13 +109,21 @@ export function SwapSection() {
   return (
     <div className="grid gap-6 lg:grid-cols-[440px_1fr]">
       {/* ------------------------------------------------ Swap card */}
-      <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+      >
         <Card className="glass rounded-3xl border-white/10">
           <CardHeader className="flex-row items-center justify-between space-y-0 pb-3">
             <CardTitle className="text-lg">Swap</CardTitle>
             <Popover>
               <PopoverTrigger asChild>
-                <Button variant="ghost" size="icon" className="h-8 w-8 rounded-lg text-muted-foreground hover:text-foreground">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-8 w-8 rounded-lg text-muted-foreground hover:text-foreground"
+                >
                   <Settings className="h-4 w-4" />
                 </Button>
               </PopoverTrigger>
@@ -145,7 +158,9 @@ export function SwapSection() {
               value={amountIn}
               onChange={setAmountIn}
               balance={isConnected || data.isDemo ? formatToken(balanceIn, 18, 4) : undefined}
-              usdValue={tokenIn === 'mUSDC' ? Number(amountIn) || 0 : (Number(amountIn) || 0) * data.price}
+              usdValue={
+                tokenIn === 'mUSDC' ? Number(amountIn) || 0 : (Number(amountIn) || 0) * data.price
+              }
               onMax={() => balanceIn !== undefined && setAmountIn(formatUnits(balanceIn, 18))}
             />
 
@@ -181,13 +196,26 @@ export function SwapSection() {
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Price impact</span>
-                <span className={cn('font-medium', priceImpact > 5 ? 'text-destructive' : priceImpact > 1 ? 'text-amber-400' : 'text-emerald-400')}>
+                <span
+                  className={cn(
+                    'font-medium',
+                    priceImpact > 5
+                      ? 'text-destructive'
+                      : priceImpact > 1
+                        ? 'text-amber-400'
+                        : 'text-emerald-400',
+                  )}
+                >
                   {priceImpact < 0.01 ? '<0.01' : formatNumber(priceImpact, 2)}%
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-muted-foreground">Minimum received ({slippage}% slippage)</span>
-                <span className="font-medium">{formatToken(minReceived, 18, 6)} {TOKENS[tokenOut].symbol}</span>
+                <span className="text-muted-foreground">
+                  Minimum received ({slippage}% slippage)
+                </span>
+                <span className="font-medium">
+                  {formatToken(minReceived, 18, 6)} {TOKENS[tokenOut].symbol}
+                </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">LP fee</span>
@@ -212,22 +240,48 @@ export function SwapSection() {
       {/* ------------------------------------------- Chart + pair stats */}
       <div className="space-y-6">
         <div className="grid gap-4 sm:grid-cols-3">
-          <StatCard icon={TrendingUp} label="mETH Price" value={`${formatNumber(data.price, 2)} mUSDC`} sub="Spot · mUSDC per mETH" delay={0.05} />
-          <StatCard icon={Droplets} label="Pool TVL" value={`$${formatCompact(Number(formatUnits(data.reserveUsdc, 18)) * 2)}`} sub={`${formatCompact(Number(formatUnits(data.reserveUsdc, 18)))} mUSDC + ${formatNumber(Number(formatUnits(data.reserveMeth, 18)), 2)} mETH`} delay={0.1} />
-          <StatCard icon={Percent} label="LP Fee" value="0.30%" sub="Accrues to liquidity providers" delay={0.15} />
+          <StatCard
+            icon={TrendingUp}
+            label="mETH Price"
+            value={`${formatNumber(data.price, 2)} mUSDC`}
+            sub="Spot · mUSDC per mETH"
+            delay={0.05}
+          />
+          <StatCard
+            icon={Droplets}
+            label="Pool TVL"
+            value={`$${formatCompact(Number(formatUnits(data.reserveUsdc, 18)) * 2)}`}
+            sub={`${formatCompact(Number(formatUnits(data.reserveUsdc, 18)))} mUSDC + ${formatNumber(Number(formatUnits(data.reserveMeth, 18)), 2)} mETH`}
+            delay={0.1}
+          />
+          <StatCard
+            icon={Percent}
+            label="LP Fee"
+            value="0.30%"
+            sub="Accrues to liquidity providers"
+            delay={0.15}
+          />
         </div>
 
-        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.1 }}>
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+        >
           <Card className="glass rounded-3xl border-white/10">
             <CardHeader className="flex-row items-baseline justify-between space-y-0">
               <div>
                 <CardTitle className="text-lg">mETH / mUSDC</CardTitle>
                 <p className="mt-1 text-xs text-muted-foreground">
-                  {isLive ? 'Execution prices of recent on-chain swaps (by block)' : 'Simulated 48h price action — demo mode'}
+                  {isLive
+                    ? 'Execution prices of recent on-chain swaps (by block)'
+                    : 'Simulated 48h price action — demo mode'}
                 </p>
               </div>
               <div className="text-right">
-                <div className="text-2xl font-semibold tracking-tight">{formatNumber(data.price, 2)}</div>
+                <div className="text-2xl font-semibold tracking-tight">
+                  {formatNumber(data.price, 2)}
+                </div>
                 <div className="text-xs text-muted-foreground">mUSDC per mETH</div>
               </div>
             </CardHeader>
@@ -283,13 +337,25 @@ function SwapButton({
     )
   }
   if (!isConnected) {
-    return <Button className={base} disabled>Connect wallet to swap</Button>
+    return (
+      <Button className={base} disabled>
+        Connect wallet to swap
+      </Button>
+    )
   }
   if (!parsedIn || parsedIn <= 0n) {
-    return <Button className={base} disabled>Enter an amount</Button>
+    return (
+      <Button className={base} disabled>
+        Enter an amount
+      </Button>
+    )
   }
   if (insufficient) {
-    return <Button className={base} variant="destructive" disabled>Insufficient {TOKENS[tokenIn].symbol} balance</Button>
+    return (
+      <Button className={base} variant="destructive" disabled>
+        Insufficient {TOKENS[tokenIn].symbol} balance
+      </Button>
+    )
   }
   if (needsApproval) {
     return (

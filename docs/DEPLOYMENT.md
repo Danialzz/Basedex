@@ -16,8 +16,8 @@ From zero to a live dapp on Base Sepolia in ~10 minutes.
 ## 1. Install & build
 
 ```bash
-git clone --recurse-submodules https://github.com/OWNER/REPO.git
-cd REPO
+git clone --recurse-submodules https://github.com/Danialzz/Basedex.git
+cd Basedex
 npm install
 cd contracts && forge build && forge test
 ```
@@ -78,13 +78,13 @@ the header no longer shows the "Demo mode" pill, and all stats come from the cha
 
 ## 5. Verify everything works
 
-| Check | Where | Expected |
-|---|---|---|
-| Faucet claim | Faucet tab | 1,000 mUSDC lands in your wallet |
-| Swap | Swap tab | Quote appears, tx confirms, chart gets a point |
-| Add liquidity | Pool tab | LP tokens appear in "Your pool share" |
-| Vault deposit | Earn tab | bvUSD shares minted; share price > 1 over time |
-| Contracts | Basescan | `sepolia.basescan.org/address/<pair>` shows code & txns |
+| Check         | Where      | Expected                                                |
+| ------------- | ---------- | ------------------------------------------------------- |
+| Faucet claim  | Faucet tab | 1,000 mUSDC lands in your wallet                        |
+| Swap          | Swap tab   | Quote appears, tx confirms, chart gets a point          |
+| Add liquidity | Pool tab   | LP tokens appear in "Your pool share"                   |
+| Vault deposit | Earn tab   | bvUSD shares minted; share price > 1 over time          |
+| Contracts     | Basescan   | `sepolia.basescan.org/address/<pair>` shows code & txns |
 
 ## 6. Share it
 

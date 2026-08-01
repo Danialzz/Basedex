@@ -7,15 +7,18 @@ import {
   useChainId,
 } from 'wagmi'
 import { toast } from 'sonner'
-import type { Address } from 'viem'
+import type { Abi, Address } from 'viem'
 import { CHAIN_ID, DEMO_MODE, EXPLORER } from '@/config/contracts'
 
 interface TxConfig {
   address: Address
-  abi: readonly unknown[]
+  abi: Abi
   functionName: string
   args?: readonly unknown[]
 }
+
+/** The exact parameter type writeContractAsync accepts (ABI-agnostic). */
+type WriteVariables = Parameters<ReturnType<typeof useWriteContract>['writeContractAsync']>[0]
 
 interface TxMessages {
   pending: string
@@ -77,7 +80,10 @@ export function useTxAction(onConfirmed?: () => void) {
           await switchChainAsync({ chainId: CHAIN_ID })
         }
         const toastId = toast.loading(messages.pending)
-        const hash = await writeContractAsync(config as never)
+        // TxConfig is a structural subset of the variables writeContractAsync
+        // accepts; the generic can't be inferred from a runtime config object,
+        // so we assert to that parameter type instead of `never`.
+        const hash = await writeContractAsync(config as WriteVariables)
         hashRef.current = hash
         toast.loading('Waiting for confirmation…', {
           id: toastId,
@@ -91,7 +97,7 @@ export function useTxAction(onConfirmed?: () => void) {
         const msg = err instanceof Error ? err.message : String(err)
         const short = msg.includes('User rejected')
           ? 'Transaction rejected in wallet'
-          : (err as { shortMessage?: string })?.shortMessage ?? 'Transaction failed'
+          : ((err as { shortMessage?: string })?.shortMessage ?? 'Transaction failed')
         toast.error(short)
         return false
       }

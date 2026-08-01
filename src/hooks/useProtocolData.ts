@@ -1,13 +1,7 @@
 import { useMemo } from 'react'
 import { useAccount, useReadContracts } from 'wagmi'
 import { formatUnits, parseUnits } from 'viem'
-import {
-  ADDRESSES,
-  DEMO_MODE,
-  mockErc20Abi,
-  pairAbi,
-  vaultAbi,
-} from '@/config/contracts'
+import { ADDRESSES, DEMO_MODE, mockErc20Abi, pairAbi, vaultAbi } from '@/config/contracts'
 import { DEMO } from '@/lib/demo'
 
 export interface ProtocolData {
@@ -47,8 +41,7 @@ export interface ProtocolData {
 const d18 = (n: number) => parseUnits(n.toString(), 18)
 
 /** mUSDC/mETH address ordering determines token0/token1 in the pair. */
-const USDC_IS_TOKEN0 =
-  ADDRESSES.mUSDC.toLowerCase() < ADDRESSES.mETH.toLowerCase()
+const USDC_IS_TOKEN0 = ADDRESSES.mUSDC.toLowerCase() < ADDRESSES.mETH.toLowerCase()
 
 export function useProtocolData(): ProtocolData {
   const { address } = useAccount()
@@ -83,16 +76,56 @@ export function useProtocolData(): ProtocolData {
     query: { enabled: !DEMO_MODE && !!address, refetchInterval: 15_000 },
     contracts: address
       ? [
-          { address: ADDRESSES.mUSDC, abi: mockErc20Abi, functionName: 'balanceOf', args: [address] },
-          { address: ADDRESSES.mETH, abi: mockErc20Abi, functionName: 'balanceOf', args: [address] },
+          {
+            address: ADDRESSES.mUSDC,
+            abi: mockErc20Abi,
+            functionName: 'balanceOf',
+            args: [address],
+          },
+          {
+            address: ADDRESSES.mETH,
+            abi: mockErc20Abi,
+            functionName: 'balanceOf',
+            args: [address],
+          },
           { address: ADDRESSES.pair, abi: pairAbi, functionName: 'balanceOf', args: [address] },
-          { address: ADDRESSES.mUSDC, abi: mockErc20Abi, functionName: 'allowance', args: [address, ADDRESSES.pair] },
-          { address: ADDRESSES.mETH, abi: mockErc20Abi, functionName: 'allowance', args: [address, ADDRESSES.pair] },
-          { address: ADDRESSES.pair, abi: pairAbi, functionName: 'allowance', args: [address, ADDRESSES.pair] },
-          { address: ADDRESSES.mUSDC, abi: mockErc20Abi, functionName: 'allowance', args: [address, ADDRESSES.vault] },
+          {
+            address: ADDRESSES.mUSDC,
+            abi: mockErc20Abi,
+            functionName: 'allowance',
+            args: [address, ADDRESSES.pair],
+          },
+          {
+            address: ADDRESSES.mETH,
+            abi: mockErc20Abi,
+            functionName: 'allowance',
+            args: [address, ADDRESSES.pair],
+          },
+          {
+            address: ADDRESSES.pair,
+            abi: pairAbi,
+            functionName: 'allowance',
+            args: [address, ADDRESSES.pair],
+          },
+          {
+            address: ADDRESSES.mUSDC,
+            abi: mockErc20Abi,
+            functionName: 'allowance',
+            args: [address, ADDRESSES.vault],
+          },
           { address: ADDRESSES.vault, abi: vaultAbi, functionName: 'balanceOf', args: [address] },
-          { address: ADDRESSES.mUSDC, abi: mockErc20Abi, functionName: 'faucetCooldownRemaining', args: [address] },
-          { address: ADDRESSES.mETH, abi: mockErc20Abi, functionName: 'faucetCooldownRemaining', args: [address] },
+          {
+            address: ADDRESSES.mUSDC,
+            abi: mockErc20Abi,
+            functionName: 'faucetCooldownRemaining',
+            args: [address],
+          },
+          {
+            address: ADDRESSES.mETH,
+            abi: mockErc20Abi,
+            functionName: 'faucetCooldownRemaining',
+            args: [address],
+          },
         ]
       : [],
   })
@@ -128,15 +161,18 @@ export function useProtocolData(): ProtocolData {
     }
 
     const p = protocolReads.data as
-      | [readonly [bigint, bigint], bigint, bigint, bigint, bigint, bigint, bigint]
-      | undefined
+      [readonly [bigint, bigint], bigint, bigint, bigint, bigint, bigint, bigint] | undefined
     const u = userReads.data as
-      | [bigint, bigint, bigint, bigint, bigint, bigint, bigint, bigint, bigint, bigint]
-      | undefined
+      [bigint, bigint, bigint, bigint, bigint, bigint, bigint, bigint, bigint, bigint] | undefined
 
     const [reserves, lpSupply, tvl, apyBps, sharePrice, fUsdc, fMeth] = p ?? [
       [0n, 0n] as const,
-      0n, 0n, 0n, 0n, 0n, 0n,
+      0n,
+      0n,
+      0n,
+      0n,
+      0n,
+      0n,
     ]
 
     const reserveUsdc = USDC_IS_TOKEN0 ? reserves[0] : reserves[1]

@@ -1,6 +1,6 @@
 # BaseDex — DeFi Hub on Base
 
-[![CI](https://github.com/OWNER/REPO/actions/workflows/ci.yml/badge.svg)](https://github.com/OWNER/REPO/actions/workflows/ci.yml)
+[![CI](https://github.com/Danialzz/Basedex/actions/workflows/ci.yml/badge.svg)](https://github.com/Danialzz/Basedex/actions/workflows/ci.yml)
 [![Network](https://img.shields.io/badge/network-Base%20Sepolia-0052FF)](https://sepolia.basescan.org)
 [![Contracts](https://img.shields.io/badge/contracts-Foundry-FF6C37)](https://book.getfoundry.sh)
 [![Frontend](https://img.shields.io/badge/frontend-React%20%2B%20wagmi-61DAFB)](https://wagmi.sh)
@@ -89,15 +89,15 @@ React frontend wired to the chain with wagmi + viem.
 └────────────────────────────────────────────────────────────────┘
 ```
 
-| Layer      | Piece                | Responsibility |
-|------------|----------------------|----------------|
-| Contracts  | `MockERC20.sol`      | Testnet tokens with rate-limited faucet + minter role |
-| Contracts  | `SimplePair.sol`     | x·y=k AMM: swaps (0.30% fee), LP mint/burn, invariant checks, reentrancy guard |
-| Contracts  | `YieldVault.sol`     | ERC-4626 vault; yield accrues per-second via `rewardRate` emission |
-| Frontend   | `useProtocolData`    | Single batched `useReadContracts` hook for all pool/vault/wallet state |
-| Frontend   | `useTxAction`        | Unified tx runner: demo-mode guard, chain switch, toast lifecycle |
-| Frontend   | `usePriceHistory`    | Derives the price chart from on-chain `Swap` event logs |
-| Tooling    | `script/Deploy.s.sol`| One-command deploy + seed + writes frontend config |
+| Layer     | Piece                 | Responsibility                                                                 |
+| --------- | --------------------- | ------------------------------------------------------------------------------ |
+| Contracts | `MockERC20.sol`       | Testnet tokens with rate-limited faucet + minter role                          |
+| Contracts | `SimplePair.sol`      | x·y=k AMM: swaps (0.30% fee), LP mint/burn, invariant checks, reentrancy guard |
+| Contracts | `YieldVault.sol`      | ERC-4626 vault; yield accrues per-second via `rewardRate` emission             |
+| Frontend  | `useProtocolData`     | Single batched `useReadContracts` hook for all pool/vault/wallet state         |
+| Frontend  | `useTxAction`         | Unified tx runner: demo-mode guard, chain switch, toast lifecycle              |
+| Frontend  | `usePriceHistory`     | Derives the price chart from on-chain `Swap` event logs                        |
+| Tooling   | `script/Deploy.s.sol` | One-command deploy + seed + writes frontend config                             |
 
 ## Tech stack
 
@@ -133,8 +133,8 @@ React frontend wired to the chain with wagmi + viem.
 Prerequisites: **Node 20+** and (for contracts) **Foundry**.
 
 ```bash
-git clone --recurse-submodules https://github.com/OWNER/REPO.git
-cd REPO
+git clone --recurse-submodules https://github.com/Danialzz/Basedex.git
+cd Basedex
 ```
 
 > Already cloned without submodules? Run `git submodule update --init --recursive`.
@@ -195,11 +195,11 @@ Detailed walkthrough: [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 
 ## Contract reference
 
-| Contract | Highlights |
-|---|---|
-| `MockERC20` | `faucet()` (24h cooldown), `setMinter()` / `mint()` role for protocol contracts |
+| Contract     | Highlights                                                                                                                                                                                               |
+| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `MockERC20`  | `faucet()` (24h cooldown), `setMinter()` / `mint()` role for protocol contracts                                                                                                                          |
 | `SimplePair` | `addLiquidity()` optimal-amount routing, `swapExactIn()` convenience + low-level `swap()`, `removeLiquidity()`, `quote()` / `getAmountOut()` / `getAmountIn()` views, `MINIMUM_LIQUIDITY` lock, `sync()` |
-| `YieldVault` | ERC-4626 `deposit/withdraw/redeem`, `totalAssets()` includes un-minted accrual, `apyBps()`, `accrue()` keeper hook, owner-tunable `rewardRate` |
+| `YieldVault` | ERC-4626 `deposit/withdraw/redeem`, `totalAssets()` includes un-minted accrual, `apyBps()`, `accrue()` keeper hook, owner-tunable `rewardRate`                                                           |
 
 Design notes: the pair follows Uniswap V2's battle-tested structure (fee-adjusted invariant
 `balance·1000 − amountIn·3`, reserves cached in `uint112`, k-monotonicity) trimmed to a
@@ -226,11 +226,11 @@ CI runs both on every push — see [.github/workflows/ci.yml](.github/workflows/
 
 Copy [.env.example](.env.example) → `.env`:
 
-| Variable | Where used | Purpose |
-|---|---|---|
-| `PRIVATE_KEY` | deploy script | Deployer wallet (Base Sepolia ETH required) |
-| `BASESCAN_API_KEY` | deploy script | Optional, for `--verify` contract verification |
-| `VITE_RPC_URL` | frontend | Optional custom RPC (defaults to `https://sepolia.base.org`) |
+| Variable           | Where used    | Purpose                                                      |
+| ------------------ | ------------- | ------------------------------------------------------------ |
+| `PRIVATE_KEY`      | deploy script | Deployer wallet (Base Sepolia ETH required)                  |
+| `BASESCAN_API_KEY` | deploy script | Optional, for `--verify` contract verification               |
+| `VITE_RPC_URL`     | frontend      | Optional custom RPC (defaults to `https://sepolia.base.org`) |
 
 ## Security & disclaimer
 

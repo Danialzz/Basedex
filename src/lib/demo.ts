@@ -11,7 +11,13 @@ export interface PricePoint {
 }
 
 /** Seeded pseudo-random walk so the chart looks identical on every load. */
-function seededWalk(seed: number, points: number, start: number, drift: number, vol: number): number[] {
+function seededWalk(
+  seed: number,
+  points: number,
+  start: number,
+  drift: number,
+  vol: number,
+): number[] {
   let s = seed
   const rand = () => {
     s = (s * 1103515245 + 12345) % 2147483648
@@ -65,7 +71,10 @@ export const DEMO = {
 }
 
 /** 1-year projected growth of a deposit at a constant rate, monthly points. */
-export function projectedGrowth(principal: number, apyBps: number): { month: string; value: number }[] {
+export function projectedGrowth(
+  principal: number,
+  apyBps: number,
+): { month: string; value: number }[] {
   const apy = apyBps / 10_000
   const out: { month: string; value: number }[] = []
   for (let m = 0; m <= 12; m++) {

@@ -1,8 +1,8 @@
-import { motion } from "framer-motion";
-import { TOKENS, type TokenSymbol } from "@/config/contracts";
-import { formatNumber } from "@/lib/format";
-import { TokenBadge } from "./TokenBadge";
-import { Button } from "@/components/ui/button";
+import { motion } from 'framer-motion'
+import { TOKENS, type TokenSymbol } from '@/config/contracts'
+import { formatNumber } from '@/lib/format'
+import { TokenBadge } from './TokenBadge'
+import { Button } from '@/components/ui/button'
 
 export function TokenInput({
   label,
@@ -14,16 +14,16 @@ export function TokenInput({
   readOnly = false,
   onMax,
 }: {
-  label: string;
-  token: TokenSymbol;
-  value: string;
-  onChange?: (v: string) => void;
-  balance?: string;
-  usdValue?: number;
-  readOnly?: boolean;
-  onMax?: () => void;
+  label: string
+  token: TokenSymbol
+  value: string
+  onChange?: (v: string) => void
+  balance?: string
+  usdValue?: number
+  readOnly?: boolean
+  onMax?: () => void
 }) {
-  const meta = TOKENS[token];
+  const meta = TOKENS[token]
 
   return (
     <motion.div
@@ -59,13 +59,9 @@ export function TokenInput({
 
           {balance !== undefined && (
             <div className="flex items-center gap-2 text-xs">
-              <span className="text-muted-foreground">
-                Balance
-              </span>
+              <span className="text-muted-foreground">Balance</span>
 
-              <span className="font-semibold text-foreground">
-                {balance}
-              </span>
+              <span className="font-semibold text-foreground">{balance}</span>
 
               {onMax && (
                 <Button
@@ -100,10 +96,9 @@ export function TokenInput({
             placeholder="0.00"
             inputMode="decimal"
             onChange={(e) => {
-              const v = e.target.value;
+              const v = e.target.value
 
-              if (v === "" || /^\d*\.?\d*$/.test(v))
-                onChange?.(v);
+              if (v === '' || /^\d*\.?\d*$/.test(v)) onChange?.(v)
             }}
             className="
               w-full
@@ -132,38 +127,26 @@ export function TokenInput({
               shadow-inner
             "
           >
-            <TokenBadge
-              symbol={token}
-              size="sm"
-            />
+            <TokenBadge symbol={token} size="sm" />
 
             <div>
-              <div className="text-sm font-bold">
-                {meta.symbol}
-              </div>
+              <div className="text-sm font-bold">{meta.symbol}</div>
 
-              <div className="text-[11px] text-muted-foreground">
-                Token
-              </div>
+              <div className="text-[11px] text-muted-foreground">Token</div>
             </div>
           </motion.div>
         </div>
 
-        {usdValue !== undefined &&
-          value &&
-          Number(value) > 0 && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="mt-3 text-sm text-muted-foreground"
-            >
-              ≈{" "}
-              <span className="font-medium text-foreground">
-                ${formatNumber(usdValue, 2)}
-              </span>
-            </motion.div>
-          )}
+        {usdValue !== undefined && value && Number(value) > 0 && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="mt-3 text-sm text-muted-foreground"
+          >
+            ≈ <span className="font-medium text-foreground">${formatNumber(usdValue, 2)}</span>
+          </motion.div>
+        )}
       </div>
     </motion.div>
-  );
+  )
 }

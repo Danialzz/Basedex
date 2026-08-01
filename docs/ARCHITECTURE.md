@@ -25,10 +25,10 @@ IPFS) and makes the whole stack auditable end to end.
 
 Two tokens back the demo economy:
 
-| Token | Role | Faucet | Decimals |
-|-------|------|--------|----------|
-| mUSDC | stable leg of the pair, vault asset | 1,000 / 24h | 18 |
-| mETH  | volatile leg of the pair            | 0.25 / 24h  | 18 |
+| Token | Role                                | Faucet      | Decimals |
+| ----- | ----------------------------------- | ----------- | -------- |
+| mUSDC | stable leg of the pair, vault asset | 1,000 / 24h | 18       |
+| mETH  | volatile leg of the pair            | 0.25 / 24h  | 18       |
 
 Both use 18 decimals to keep AMM and vault math uniform (the frontend reads decimals
 from token metadata, so switching to 6-decimal USDC later is a config change).
@@ -71,11 +71,11 @@ An OpenZeppelin ERC-4626 vault over mUSDC:
 - **Emission model**: `rewardRate` (asset wei/second) set by the owner. Yield accrues
   linearly: `pendingYield() = rewardRate · (now − lastAccrual)`.
 - **`totalAssets()` override** includes pending (not-yet-minted) yield, so
-  `convertToShares`/`convertToAssets` and all previews are exact *between* accruals —
+  `convertToShares`/`convertToAssets` and all previews are exact _between_ accruals —
   deposits and withdrawals first call `_accrue()`, which mints the pending amount into
   the vault (it holds the token's minter role) and timestamps the accrual.
 - **`apyBps()`** derives the instantaneous APY: `rewardRate · 365d · 10_000 /
-  totalAssets()`. The default rate (≈3.17e15 wei/s) targets ~10% APY at 1M mUSDC TVL.
+totalAssets()`. The default rate (≈3.17e15 wei/s) targets ~10% APY at 1M mUSDC TVL.
 - Changing the rate (`setRewardRate`) accrues first so old-rate yield is fully
   accounted; `accrue()` is permissionless so anyone (a keeper) can poke the vault.
 

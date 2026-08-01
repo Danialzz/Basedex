@@ -55,7 +55,10 @@ export function PriceChart({
             }}
             labelStyle={{ color: 'hsl(215 20% 65%)' }}
             itemStyle={{ color: '#fff' }}
-            formatter={(value) => [`${unit}${formatNumber(Number(value), 2)}`, isPrice ? 'mUSDC / mETH' : 'Value']}
+            formatter={(value) => [
+              `${unit}${formatNumber(Number(value), 2)}`,
+              isPrice ? 'mUSDC / mETH' : 'Value',
+            ]}
           />
           <Area
             type="monotone"

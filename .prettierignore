@@ -1,0 +1,11 @@
+node_modules
+dist
+dist-ssr
+contracts/out
+contracts/cache
+contracts/broadcast
+contracts/lib
+src/generated.ts
+package-lock.json
+*.png
+*.svg
