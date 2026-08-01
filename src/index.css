@@ -4,9 +4,9 @@
 
 @layer base {
   /*
-    BaseDex dark theme — deep navy canvas, Base blue (#0052FF ≈ hsl 221 100% 50%)
-    primary, cyan accents. The app is dark-first; light mode is intentionally
-    not shipped (web3 dashboard convention).
+    BaseDex theme — Base blue (#0052FF ≈ hsl 221 100% 50%) primary, cyan accents.
+    Dark is the default (web3 dashboard convention); a `.light` class on <html>
+    (toggled via next-themes) switches to the light palette below.
   */
   :root {
     --background: 224 47% 4%;
@@ -39,6 +39,37 @@
     --sidebar-ring: 221 100% 55%;
   }
 
+  /* Light palette — soft neutral canvas, same Base blue primary. */
+  .light {
+    --background: 220 33% 98%;
+    --foreground: 224 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 224 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 47% 11%;
+    --primary: 221 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 20% 94%;
+    --secondary-foreground: 224 47% 15%;
+    --muted: 220 20% 94%;
+    --muted-foreground: 220 12% 46%;
+    --accent: 220 22% 92%;
+    --accent-foreground: 224 47% 15%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 220 18% 88%;
+    --input: 220 18% 88%;
+    --ring: 221 100% 50%;
+    --sidebar-background: 220 25% 96%;
+    --sidebar-foreground: 224 47% 11%;
+    --sidebar-primary: 221 100% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 20% 92%;
+    --sidebar-accent-foreground: 224 47% 15%;
+    --sidebar-border: 220 18% 88%;
+    --sidebar-ring: 221 100% 50%;
+  }
+
   * {
     @apply border-border;
   }
@@ -46,6 +77,11 @@
   html {
     color-scheme: dark;
   }
+
+  html.light {
+    color-scheme: light;
+  }
+
 
   body {
     @apply bg-background text-foreground antialiased;
@@ -82,6 +118,11 @@
     border: 1px solid hsl(0 0% 100% / 0.07);
   }
 
+  .light .glass {
+    background: linear-gradient(160deg, hsl(0 0% 100% / 0.85), hsl(220 33% 97% / 0.9));
+    border: 1px solid hsl(224 47% 11% / 0.08);
+  }
+
   /* Faint engineering grid for the page background */
   .bg-grid {
     background-image:
@@ -90,4 +131,11 @@
     background-size: 44px 44px;
     mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 30%, transparent 75%);
   }
+
+  .light .bg-grid {
+    background-image:
+      linear-gradient(to right, hsl(224 47% 11% / 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(224 47% 11% / 0.05) 1px, transparent 1px);
+  }
 }
+

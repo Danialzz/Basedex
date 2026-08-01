@@ -1,7 +1,9 @@
 import { Waves } from 'lucide-react'
 import { ConnectButton } from '@/components/ConnectButton'
+import { ThemeToggle } from '@/components/ThemeToggle'
 import { DEMO_MODE } from '@/config/contracts'
 import { cn } from '@/lib/utils'
+
 
 export type Tab = 'swap' | 'pool' | 'earn' | 'faucet'
 
@@ -58,7 +60,9 @@ export function Header({ tab, onTab }: { tab: Tab; onTab: (t: Tab) => void }) {
             <span className="h-1.5 w-1.5 rounded-full bg-[#0052FF]" />
             Base Sepolia
           </span>
+          <ThemeToggle />
           <ConnectButton />
+
         </div>
       </div>
 

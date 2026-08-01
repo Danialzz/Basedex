@@ -65,7 +65,8 @@ export default function Home() {
       </main>
 
       <Footer />
-      <Toaster theme="dark" richColors closeButton position="top-right" />
+      <Toaster richColors closeButton position="top-right" />
+
     </div>
   )
 }
